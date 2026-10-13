@@ -119,7 +119,7 @@ Cierra la sesión actual (elimina la cookie de sesión).
 
 ### 1. Obtener el código
 ```bash
-git clone <URL-DEL-REPOSITORIO>
+git clone <https://github.com/rodgpinto/PFO-2-ProgramacionSobreRedes>
 cd <carpeta-del-repositorio>
 ```
 
