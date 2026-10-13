@@ -176,11 +176,15 @@ API_URL=<URL> python cliente.py                     # contra el servicio despleg
 ### Capturas de pantalla
 
 Las capturas de las pruebas exitosas se encuentran en la carpeta [`capturas/`](capturas/):
-
+**Registro exitoso**
 ![Registro exitoso](capturas/01-registro.png)
+**Login Exitoso**
 ![Login exitoso](capturas/02-login.png)
+**Vista de tareas**
 ![Vista de tareas](capturas/03-tareas.png)
+**Acceso sin sesión**
 ![Acceso sin sesión (401)](capturas/04-sin-sesion.png)
+**Vista desde cliente consola**
 ![Cliente de consola](capturas/05-cliente.png)
 
 ## Despliegue
