@@ -34,6 +34,7 @@
 ├── cliente.py         # Cliente de consola
 ├── requirements.txt   # Dependencias
 ├── render.yaml        # Configuración de despliegue (Render)
+├── capturas/          # Capturas de pantalla de las pruebas
 └── README.md
 ```
 
@@ -112,22 +113,50 @@ Cierra la sesión actual (elimina la cookie de sesión).
 - **Escape de HTML** automático en la vista de bienvenida (Jinja2), que evita inyección de código a través del nombre de usuario.
 - **Clave de sesión** (`SECRET_KEY`) tomada de una variable de entorno en producción.
 
-## Ejecución local
+## Instalación y ejecución local
 
-Requisitos: Python 3.9 o superior.
+**Requisitos:** Python 3.9 o superior y Git.
 
+### 1. Obtener el código
 ```bash
-python -m venv .venv
-.venv\Scripts\activate            # Windows  (Linux/macOS: source .venv/bin/activate)
-pip install -r requirements.txt
-python servidor.py
+git clone <URL-DEL-REPOSITORIO>
+cd <carpeta-del-repositorio>
 ```
 
-El servidor queda disponible en `http://127.0.0.1:5000`. En otra terminal, con el entorno activado:
+### 2. Crear y activar un entorno virtual
 
+| Sistema | Crear | Activar |
+|---|---|---|
+| Windows (PowerShell) | `python -m venv .venv` | `.venv\Scripts\Activate.ps1` |
+| Windows (CMD) | `python -m venv .venv` | `.venv\Scripts\activate.bat` |
+| Linux / macOS | `python3 -m venv .venv` | `source .venv/bin/activate` |
+
+> En PowerShell, si la activación es bloqueada por la política de ejecución, ejecutar una vez `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
+
+### 3. Instalar dependencias
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 4. Iniciar el servidor
+```bash
+python servidor.py
+```
+El servidor queda disponible en **http://127.0.0.1:5000**. La base de datos (`usuarios.db`) se crea automáticamente en el primer arranque.
+
+### 5. Usar el cliente de consola
+En una segunda terminal, con el entorno virtual activado:
 ```bash
 python cliente.py
 ```
+El cliente muestra un menú numerado: `1) Registrarse`, `2) Iniciar sesión`, `3) Ver tareas`, `4) Cerrar sesión`, `5) Salir`. Mantiene la cookie de sesión entre opciones, por lo que primero se debe registrar un usuario (1), iniciar sesión (2) y luego consultar las tareas (3).
+
+Para apuntar el cliente al servicio desplegado, definir `API_URL` antes de ejecutarlo:
+
+| Sistema | Comando |
+|---|---|
+| Windows (PowerShell) | `$env:API_URL = "<URL>"` y luego `python cliente.py` |
+| Linux / macOS | `API_URL=<URL> python cliente.py` |
 
 ### Variables de entorno
 
@@ -143,6 +172,7 @@ python cliente.py
 Abrir la raíz `/` y usar los botones **POST /registro**, **POST /login**, **GET /tareas** (muestra el HTML renderizado) y **POST /logout**.
 
 ### Con curl
+En Linux/macOS o Git Bash. En PowerShell, `curl` es un alias de otro comando: usar `curl.exe` y comillas escapadas, o bien la página de pruebas del navegador.
 ```bash
 curl -X POST <URL>/registro -H "Content-Type: application/json" \
      -d '{"usuario":"ana","contraseña":"1234"}'
@@ -154,10 +184,7 @@ curl -b cookies.txt <URL>/tareas
 ```
 
 ### Con el cliente de consola
-```bash
-python cliente.py                                   # contra el servidor local
-API_URL=<URL> python cliente.py                     # contra el servicio desplegado
-```
+Ver [Usar el cliente de consola](#5-usar-el-cliente-de-consola); funciona tanto contra el servidor local como contra el servicio desplegado.
 
 ### Casos verificados
 
@@ -176,15 +203,11 @@ API_URL=<URL> python cliente.py                     # contra el servicio despleg
 ### Capturas de pantalla
 
 Las capturas de las pruebas exitosas se encuentran en la carpeta [`capturas/`](capturas/):
-**Registro exitoso**
+
 ![Registro exitoso](capturas/01-registro.png)
-**Login Exitoso**
 ![Login exitoso](capturas/02-login.png)
-**Vista de tareas**
 ![Vista de tareas](capturas/03-tareas.png)
-**Acceso sin sesión**
 ![Acceso sin sesión (401)](capturas/04-sin-sesion.png)
-**Vista desde cliente consola**
 ![Cliente de consola](capturas/05-cliente.png)
 
 ## Despliegue
