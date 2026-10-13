@@ -6,7 +6,7 @@
 |---|---|
 | **Autor** | Rodrigo Pinto |
 | **Repositorio** | https://github.com/rodgpinto/PFO-2-ProgramacionSobreRedes |
-| **Servicio desplegado** | _URL de Render_ (la raíz `/` ofrece una interfaz web para probar la API) |
+| **Servicio desplegado** | https://pfo2-tareas.onrender.com/ (la raíz `/` ofrece una interfaz web para probar la API) |
 
 ## Objetivos
 
