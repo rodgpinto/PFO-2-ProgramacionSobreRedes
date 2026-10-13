@@ -1,0 +1,4 @@
+usuarios.db
+__pycache__/
+.venv/
+cookies.txt
